@@ -14,27 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
-from django.conf import settings
-from django.conf.urls.static import static
+from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('inventory.urls')),
+    path('inventory/', include('inventory.urls', namespace='inventory')),
+
 ]
-
-
-"""Remember: In production, you should configure your web server to serve static files directly instead of relying on Django to serve them.
-# Nginx: In your Nginx configuration file, add the following lines:
-
-location /media/ {
-  alias /path/to/your/media/root/;
-}
-
-location /static/ {
-  alias /path/to/your/static/root/;
-}
-"""
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)

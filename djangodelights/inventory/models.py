@@ -26,10 +26,11 @@ class RecipeRequirement(models.Model):
         "inventory.MenuItem", on_delete=models.CASCADE)
     ingredient = models.ForeignKey(
         "inventory.Ingredients", on_delete=models.CASCADE)
-    quantity = models.FloatField(default=0)
+    quantity = models.FloatField(default=0.0)
 
 
 class Purchase(models.Model):
     menu_item = models.ForeignKey(
         "inventory.MenuItem", on_delete=models.CASCADE)
     timestamp = models.DateTimeField()
+    total_price = models.FloatField(default=0.0)
