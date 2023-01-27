@@ -6,13 +6,19 @@ from django.db import models
 class Ingredients(models.Model):
     ingredient = models.CharField(max_length=30)
     quantity = models.FloatField(default=0.0)
-    unity = models.CharField(max_length=10)
+    unit = models.CharField(max_length=10)
     price_per_unit = models.FloatField(default=0.0)
 
 
 class MenuItem(models.Model):
     title = models.CharField(max_length=30)
     price = models.FloatField(default=0.0)
+    image = models.ImageField(upload_to='menu_images/', blank=True)
+    recipe_url = models.URLField(blank=True)
+
+    # return a string representation of the object
+    def __str__(self):
+        return self.title
 
 
 class RecipeRequirement(models.Model):
