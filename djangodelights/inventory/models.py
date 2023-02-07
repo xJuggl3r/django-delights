@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Create your models here.
 
 
@@ -29,8 +30,19 @@ class RecipeRequirement(models.Model):
     quantity = models.FloatField(default=0.0)
 
 
+# class Purchase(models.Model):
+#     menu_item = models.ForeignKey(
+#         "inventory.MenuItem", on_delete=models.CASCADE)
+#     timestamp = models.DateTimeField()
+#     purchase_total_price = models.FloatField(default=0.0)
+
 class Purchase(models.Model):
-    menu_item = models.ForeignKey(
-        "inventory.MenuItem", on_delete=models.CASCADE)
+    menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
+    quantity = models.FloatField(default=0.0)
     timestamp = models.DateTimeField()
-    total_price = models.FloatField(default=0.0)
+    purchase_total_price = models.FloatField(default=0.0)
+    price = models.FloatField(default=0.0)
+
+    def save(self, *args, **kwargs):
+        self.purchase_total_price = self.quantity * self.menu_item.price
+        super().save(*args, **kwargs)

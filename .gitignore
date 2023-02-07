@@ -1,4 +1,4 @@
-venv/*
+.env
+venv
 __pycache__
-djangodelights/db.sqlite3
-djangodelights/djangodelights/settings.py
+db.sqlite3

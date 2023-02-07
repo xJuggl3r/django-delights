@@ -2,10 +2,12 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, CreateView, DeleteView, UpdateView
 from inventory.models import Ingredients, MenuItem, Purchase
 from django.urls import reverse_lazy
+from django.db.models import F
+
 
 # Create your views here.
 
-
+# Find problems with the following code
 class IndexView(TemplateView):
     template_name = 'home.html'
 
@@ -25,7 +27,7 @@ class CreateIngredientView(CreateView):
 
 class UpdateIngredientView(UpdateView):
     model = Ingredients
-    fields = ('name', 'quantity')
+    fields = ('ingredient', 'quantity')
     template_name = 'edit_ingredient.html'
     success_url = reverse_lazy('inventory')
 
