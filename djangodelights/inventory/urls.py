@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from .views import IndexView, InventoryView, CreateIngredientView, UpdateIngredientView, DeleteIngredientView, MenuView, PurchaseView, ProfitView, RecipeView
+from .views import IndexView, InventoryView, CreateIngredientView, UpdateIngredientView, DeleteIngredientView, MenuView, PurchasesView, NewPurchaseView, ProfitView, RecipeView
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -16,7 +16,8 @@ urlpatterns = [
     path('inventory/<int:pk>/delete/',
          DeleteIngredientView.as_view(), name='delete_ingredient'),
     path('menu/', MenuView.as_view(), name='menu'),
-    path('purchases/', PurchaseView.as_view(), name='purchases'),
+    path('purchases/', PurchasesView.as_view(), name='purchases'),
+    path('new_purchase/', NewPurchaseView.as_view(), name='new_purchase'),
     path('profit/', ProfitView.as_view(), name='profit'),
     path('recipe/', RecipeView.as_view(), name='recipe'),
 

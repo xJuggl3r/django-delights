@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic import TemplateView, ListView, CreateView, DeleteView, UpdateView
 from inventory.models import Ingredients, MenuItem, Purchase
 from django.urls import reverse_lazy
-from django.db.models import F
+# from inventory.views import HomeView, IngredientsView, NewIngredientView, UpdateIngredientView, MenuView, NewMenuItemView, PurchasesView, NewPurchaseView
 
 
 # Create your views here.
@@ -49,13 +49,16 @@ class MenuView(ListView):
     context_object_name = 'menu_items'
 
 
-class PurchaseView(ListView):
+class PurchasesView(ListView):
+    template_name = "purchase_list.html"
     model = Purchase
-    template_name = 'purchases.html'
-    context_object_name = 'purchases'
 
-    def get_queryset(self):
-        return Purchase.objects.annotate(total_price=F('quantity') * F('price'))
+
+class NewPurchaseView(CreateView):
+    model = Purchase
+    fields = '__all__'
+    template_name = 'new_purchase.html'
+    success_url = reverse_lazy('inventory:purchases')
 
 
 class ProfitView(TemplateView):

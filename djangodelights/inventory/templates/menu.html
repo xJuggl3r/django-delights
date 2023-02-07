@@ -1,5 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>The Menu is:</h1>
-{% endblock %}
+<div class="container mt-5">
+    <h1 class="text-center mb-5">Menu</h1>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Image</th>
+          <th>Recipe URL</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for menu_item in menu_items %}
+          <tr>
+            <td>{{ menu_item.title }}</td>
+            <td>{{ menu_item.price }}</td>
+            <td>
+              {% if menu_item.image %}
+                <img src="{{ menu_item.image.url }}" height="50" width="50">
+              {% endif %}
+            </td>
+            <td>
+              {% if menu_item.recipe_url %}
+                <a href="{{ menu_item.recipe_url }}">Link</a>
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endblock %}
+

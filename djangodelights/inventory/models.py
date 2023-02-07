@@ -30,19 +30,19 @@ class RecipeRequirement(models.Model):
     quantity = models.FloatField(default=0.0)
 
 
-# class Purchase(models.Model):
-#     menu_item = models.ForeignKey(
-#         "inventory.MenuItem", on_delete=models.CASCADE)
-#     timestamp = models.DateTimeField()
-#     purchase_total_price = models.FloatField(default=0.0)
-
 class Purchase(models.Model):
     menu_item = models.ForeignKey(MenuItem, on_delete=models.CASCADE)
     quantity = models.FloatField(default=0.0)
-    timestamp = models.DateTimeField()
-    purchase_total_price = models.FloatField(default=0.0)
+    timestamp = models.DateTimeField(auto_now_add=True)
     price = models.FloatField(default=0.0)
 
     def save(self, *args, **kwargs):
-        self.purchase_total_price = self.quantity * self.menu_item.price
+        ingredient = RecipeRequirement.objects.get(
+            menu_item=self.menu_item).ingredient
+        self.price = ingredient.price_per_unit
+        self.purchase_total_price = self.price * self.quantity
         super().save(*args, **kwargs)
+
+    @property
+    def purchase_total_price(self):
+        return self.price * self.quantity

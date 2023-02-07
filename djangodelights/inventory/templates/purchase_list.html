@@ -15,6 +15,7 @@
             {% for purchase in purchases %}
                 <tr>
                     <td>{{ purchase.menu_item }}</td>
+                    <td>{{ purchase.quantity }}</td>
                     <td>{{ purchase.timestamp }}</td>
                     <td>{{ purchase.purchase_total_price }}</td>
                 </tr>
